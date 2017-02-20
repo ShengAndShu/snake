@@ -35,6 +35,7 @@ jQuery.fn.snake=function(options){
     
     addKeys($_canvas);
     var timer=setInterval(function(){render(context)}, speed);
+
     function render(ctx) {
         ctx.shadowBlur = 20;
         if (gameOver()){
@@ -48,7 +49,7 @@ jQuery.fn.snake=function(options){
         renderScore(ctx);
 
         if (gameOver()){
-            alert("game over\n你获得：" + (s.length - 2) + "分");
+            renderGameOver(ctx);
             return;
         }
         ChangeLevel(ctx);
@@ -84,9 +85,18 @@ jQuery.fn.snake=function(options){
         ctx.fillText("分数:"+(s.length - 2)+"  关卡:"+level,10,10);
     }
 
+    function renderGameOver(ctx){
+        ctx.fillStyle="#000";
+        ctx.shadowBlur=0;
+        ctx.textBaseline="middle";
+        ctx.textAlign="center";
+        ctx.font="25px Arial";
+        ctx.fillText("game over\n你获得：" + (s.length - 2) + "分",row*5,col*5);
+    }
+
     //切换关卡
     function ChangeLevel(ctx){
-        if((s.length-2)==3){
+        if((s.length-2)==10){
             if(offOn01){
             clearInterval(timer);
             offOn01=false;
@@ -143,21 +153,21 @@ jQuery.fn.snake=function(options){
     /*(Math.abs(event.keyCode - co) != 2判断不能向后走
     left:37,top:38,right:39,bottom:40
     反方向刚刚好是相差2
-    */   
+    */
     document.onkeydown = function(event) {
         if(offOn){
             offOn = false;
-            co=(event.keyCode >= 37 && event.keyCode <= 40 && (Math.abs(event.keyCode - co) != 2))?event.keyCode:co;
+            co = event.keyCode >= 37 && event.keyCode <= 40 && (Math.abs(event.keyCode - co) != 2) ? event.keyCode : co;
         }
     }
 
-    //加入屏幕按键
+    //加入屏幕模拟按键
     function addKeys(c){
         var key = "<div id='key'><div>↑</div><div>→</div><div>↓</div><div>←</div></div>";
         c.after(key);
         var keys = $("#key").children();
         $("#key").css({
-            "fontSize":"48px",
+            "fontSize":"38px",
             "fontWeight":"bold",
             "width":"150px",
             "height":"150px",
@@ -168,7 +178,9 @@ jQuery.fn.snake=function(options){
             "width":"48px",
             "height":"48px",
             "position":"absolute",
-            "backgroundColor":"#888"
+            "backgroundColor":"#888",
+            "textAlign":"center",
+            "cursor":"default"
         });
         keys.eq(0).css({
             "left":"50px",
@@ -188,4 +200,3 @@ jQuery.fn.snake=function(options){
         }).on("click",function(){co=co!=39?37:co});
     }
 }
-
