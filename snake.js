@@ -25,15 +25,16 @@ jQuery.fn.snake=function(options){
     var num=3;
     var level=1;
     
-    var context = this[0].getContext("2d");
-    this[0].width=row*10;
-    this[0].height=col*10;
-    this.css({
+    var $_canvas=this;
+    var context = $_canvas[0].getContext("2d");
+    $_canvas[0].width=row*10;
+    $_canvas[0].height=col*10;
+    $_canvas.css({
         "border":"1px solid #d3d3d3"
     });
-
+    
+    addKeys($_canvas);
     var timer=setInterval(function(){render(context)}, speed);
-
     function render(ctx) {
         ctx.shadowBlur = 20;
         if (gameOver()){
@@ -142,11 +143,49 @@ jQuery.fn.snake=function(options){
     /*(Math.abs(event.keyCode - co) != 2判断不能向后走
     left:37,top:38,right:39,bottom:40
     反方向刚刚好是相差2
-    */
+    */   
     document.onkeydown = function(event) {
         if(offOn){
             offOn = false;
-            co = event.keyCode >= 37 && event.keyCode <= 40 && (Math.abs(event.keyCode - co) != 2) ? event.keyCode : co;
+            co=(event.keyCode >= 37 && event.keyCode <= 40 && (Math.abs(event.keyCode - co) != 2))?event.keyCode:co;
         }
     }
+
+    //加入屏幕按键
+    function addKeys(c){
+        var key = "<div id='key'><div>↑</div><div>→</div><div>↓</div><div>←</div></div>";
+        c.after(key);
+        var keys = $("#key").children();
+        $("#key").css({
+            "fontSize":"48px",
+            "fontWeight":"bold",
+            "width":"150px",
+            "height":"150px",
+            "position":"relative"
+        });
+        keys.css({
+            "border":"1px solid #000",
+            "width":"48px",
+            "height":"48px",
+            "position":"absolute",
+            "backgroundColor":"#888"
+        });
+        keys.eq(0).css({
+            "left":"50px",
+            "top":"0"
+        }).on("click",function(){co=co!=40?38:co});
+        keys.eq(1).css({
+            "left":"100px",
+            "top":"50px"
+        }).on("click",function(){co=co!=37?39:co});
+        keys.eq(2).css({
+            "left":"50px",
+            "top":"100px"
+        }).on("click",function(){co=co!=38?40:co});
+        keys.eq(3).css({
+            "left":"0",
+            "top":"50px"
+        }).on("click",function(){co=co!=39?37:co});
+    }
 }
+
