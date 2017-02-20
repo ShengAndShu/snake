@@ -167,36 +167,36 @@ jQuery.fn.snake=function(options){
         c.after(key);
         var keys = $("#key").children();
         $("#key").css({
-            "fontSize":"38px",
+            "fontSize":"80px",
             "fontWeight":"bold",
-            "width":"150px",
-            "height":"150px",
+            "width":"300px",
+            "height":"300px",
             "position":"relative"
         });
         keys.css({
             "border":"1px solid #000",
-            "width":"48px",
-            "height":"48px",
+            "width":"98px",
+            "height":"98px",
             "position":"absolute",
             "backgroundColor":"#888",
             "textAlign":"center",
             "cursor":"default"
         });
         keys.eq(0).css({
-            "left":"50px",
+            "left":"100px",
             "top":"0"
         }).on("click",function(){co=co!=40?38:co});
         keys.eq(1).css({
-            "left":"100px",
-            "top":"50px"
+            "left":"200px",
+            "top":"100px"
         }).on("click",function(){co=co!=37?39:co});
         keys.eq(2).css({
-            "left":"50px",
-            "top":"100px"
+            "left":"100px",
+            "top":"200px"
         }).on("click",function(){co=co!=38?40:co});
         keys.eq(3).css({
             "left":"0",
-            "top":"50px"
+            "top":"100px"
         }).on("click",function(){co=co!=39?37:co});
     }
 }
