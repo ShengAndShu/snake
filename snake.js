@@ -2,14 +2,16 @@ jQuery.fn.snake=function(options){
     var $options=$.extend({
         color: ["#000","#ff7600"],
         speed: 200,
-        row:30,
-        col:30,
+        row: 30,
+        col: 30,
+        keyWidth: 50,
         },options);
     
     var color=$options.color;
     var speed=$options.speed;
     var row=$options.row;
     var col=$options.col;
+    var keyWidth=$options.keyWidth;
 
     var s = [{
             x: 10,
@@ -167,36 +169,37 @@ jQuery.fn.snake=function(options){
         c.after(key);
         var keys = $("#key").children();
         $("#key").css({
-            "fontSize":"80px",
+            "fontSize":keyWidth*0.9+"px",
             "fontWeight":"bold",
-            "width":"300px",
-            "height":"300px",
+            "width":keyWidth*3+"px",
+            "height":keyWidth*3+"px",
             "position":"relative"
         });
         keys.css({
-            "border":"1px solid #000",
-            "width":"98px",
-            "height":"98px",
+            "border":"none",
+            "width":keyWidth+"px",
+            "height":keyWidth+"px",
             "position":"absolute",
             "backgroundColor":"#888",
             "textAlign":"center",
+            "lineHeight":keyWidth+"px",
             "cursor":"default"
         });
         keys.eq(0).css({
-            "left":"100px",
+            "left":keyWidth+"px",
             "top":"0"
         }).on("click",function(){co=co!=40?38:co});
         keys.eq(1).css({
-            "left":"200px",
-            "top":"100px"
+            "left":keyWidth*2+"px",
+            "top":keyWidth+"px"
         }).on("click",function(){co=co!=37?39:co});
         keys.eq(2).css({
-            "left":"100px",
-            "top":"200px"
+            "left":keyWidth+"px",
+            "top":keyWidth*2+"px"
         }).on("click",function(){co=co!=38?40:co});
         keys.eq(3).css({
             "left":"0",
-            "top":"100px"
+            "top":keyWidth+"px"
         }).on("click",function(){co=co!=39?37:co});
     }
 }
