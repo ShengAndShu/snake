@@ -1,5 +1,5 @@
 # snake
-snake是一个基于jQuery和canvas的游戏插件，它能够在你的页面上插入一个贪吃蛇游戏。
+一个基于jQuery和canvas的小游戏。
 ## 使用方法
 ###1.引入文件
     <script src="jquery.min.js"></script>
